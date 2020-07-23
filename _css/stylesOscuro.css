@@ -1,0 +1,121 @@
+
+
+/* Paleta 1 
+
+Verde oscuro +
+verde claro
+amarillo
+naranja
+salmon
+
+
+
+264653
+2a9d8f
+e9c46a
+f4a261
+e76f51
+
+
+Iniciales que tenia
+
+Verde oscuro ++
+Verde Oscuro +++
+Verde Rey
+
+19303d
+12242e
+4087c9
+
+*/
+
+
+QMainWindow#window {background-color: black;}
+
+
+QFrame#frameBotones{
+background-color: #19303d;
+color: rgb(255, 255, 255);
+}
+QFrame#frameProyecto{
+background-color: #4492db;
+color: rgb(255, 255, 255);
+}
+
+QFrame#frameModel{
+background-color: rgb(0, 170, 255);
+color: rgb(255, 255, 255);
+}
+QFrame#frameInicio{
+background-color: #264653;
+color: rgb(255, 255, 255);
+}
+
+
+/*--------------- LINE EDIT --------------------*/
+
+QlineEdit{
+border:0;
+font-size:14px;
+height: 30px;
+}
+
+
+
+
+/*--------------- LABEL --------------------*/
+QLabel{
+color: rgb(165, 165, 165);
+font-size:14px;
+}
+
+QLabel#labelInsitu{
+background-color: #4087c9;
+color: rgb(255, 255, 255);
+font: bold;
+}
+QLabel#labelUsuario{
+background-color: #19303d;
+color: rgb(255, 255, 255);
+}
+QLabel#labelPPrincipal{
+background-color: #12242e;
+font: bold;
+}
+QLabel#labelProyecto{
+background-color: #4087c9;
+color: rgb(255, 255, 255);
+font: bold;
+}
+
+QLabel#labelPerforacion{
+color: rgb(255, 255, 255);
+font: bold;
+font-size:18px;
+}
+
+QLabel#labelMuestra{
+color: rgb(255, 255, 255);
+font: bold;
+font-size:18px;
+}
+
+
+/*--------------- TOOL BUTTON --------------------*/
+
+QToolButton{
+background-color: #19303d;
+color: rgb(42, 157, 143);
+border-style: outset;
+border-width: 1px;
+border-radius: 2px;
+border-color: rgb(80, 80, 80);
+font: 14px;
+
+}
+
+QToolButton:hover{
+background-color: #4087c9;
+font-size:16px;
+}
+
