@@ -6,527 +6,382 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>851</width>
-    <height>827</height>
+    <width>803</width>
+    <height>861</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>600</width>
-    <height>600</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <property name="iconSize">
-   <size>
-    <width>24</width>
-    <height>24</height>
-   </size>
-  </property>
-  <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonIconOnly</enum>
-  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <item>
-     <widget class="QFrame" name="frameBotones">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>220</width>
-        <height>900</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>220</width>
-        <height>1200</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="labelInsitu">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>220</width>
-         <height>50</height>
-        </rect>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="enabled">
+        <bool>true</bool>
        </property>
-       <property name="text">
-        <string>InSituGeo</string>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>0</height>
+        </size>
        </property>
-      </widget>
-      <widget class="QLabel" name="labelPPrincipal">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>150</y>
-         <width>220</width>
-         <height>30</height>
-        </rect>
+       <property name="maximumSize">
+        <size>
+         <width>300</width>
+         <height>16777215</height>
+        </size>
        </property>
-       <property name="text">
-        <string>PANEL PRINCIPAL</string>
+       <property name="tabPosition">
+        <enum>QTabWidget::West</enum>
        </property>
-       <property name="scaledContents">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="usesScrollButtons">
         <bool>false</bool>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="wordWrap">
+       <property name="documentMode">
         <bool>false</bool>
        </property>
+       <property name="movable">
+        <bool>false</bool>
+       </property>
+       <property name="tabBarAutoHide">
+        <bool>false</bool>
+       </property>
+       <widget class="QWidget" name="tab_malla">
+        <attribute name="title">
+         <string>Malla</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Ancho:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_malla_ancho"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Alto:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEdit_malla_alto"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QCheckBox" name="checkBox_malla_coorIni">
+                 <property name="text">
+                  <string>Coordenda inicio</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>xi:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_malla_xi">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>yi:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_malla_yi">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_malla_agregar">
+             <property name="text">
+              <string>Agregar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tableWidget_malla_coordenadas">
+             <property name="columnCount">
+              <number>3</number>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>67</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Punto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>X</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Y</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Tamaño elemento:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_malla_tamanoElemento">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_malla_mallar">
+           <property name="text">
+            <string>Mallar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_materiales">
+        <attribute name="title">
+         <string>Materiales</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Agregar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="treeWidget">
+           <column>
+            <property name="text">
+             <string>Materiales</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Color</string>
+            </property>
+           </column>
+           <item>
+            <property name="text">
+             <string>1 Suelo arcilloso</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="background">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_puntosMaterial">
+        <attribute name="title">
+         <string>Puntos Material</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QPushButton" name="pushButton_5">
+           <property name="text">
+            <string>Agregar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="treeWidget_2">
+           <column>
+            <property name="text">
+             <string>Estrato</string>
+            </property>
+           </column>
+           <item>
+            <property name="text">
+             <string>1 Suelo arcilloso</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="tableWidget_2">
+           <property name="columnCount">
+            <number>3</number>
+           </property>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>67</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Punto</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>X</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_contorno">
+        <attribute name="title">
+         <string>Contorno</string>
+        </attribute>
+       </widget>
       </widget>
-      <widget class="QLabel" name="labelUsuario">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>50</y>
-         <width>201</width>
-         <height>100</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Edwin Arevalo
-Ing. Civil</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonInicio">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>180</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Inicio</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_inicio.png</normaloff>../Images/Icons/ICO_inicio.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>26</width>
-         <height>26</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonProyecto">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>221</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Proyecto</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_proyecto.png</normaloff>../Images/Icons/ICO_proyecto.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonOrdenCampo">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>590</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Orden de Campo</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_ordenPerforacion2.png</normaloff>../Images/Icons/ICO_ordenPerforacion2.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonOrdenLab">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>630</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Orden de laboratorio</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_ordenLaboratorio.png</normaloff>../Images/Icons/ICO_ordenLaboratorio.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonBDPerforaciones">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>262</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Base Perforaciones</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_perforacion.png</normaloff>../Images/Icons/ICO_perforacion.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonBDEnsayos">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>303</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Base Muestra/Ensayos</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_laboratorio.png</normaloff>../Images/Icons/ICO_laboratorio.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonReportes">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>344</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Reportes</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_reporte.png</normaloff>../Images/Icons/ICO_reporte.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonGraficar">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>385</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Graficar</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_graficar.png</normaloff>../Images/Icons/ICO_graficar.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButtonConfiguracion">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>426</y>
-         <width>220</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string notr="true">Configuración</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../Images/Icons/ICO_configurar.png</normaloff>../Images/Icons/ICO_configurar.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelPerforacion">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>500</y>
-         <width>201</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Perforación?</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelMuestra">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>540</y>
-         <width>181</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Muestra NO?</string>
-       </property>
-      </widget>
-     </widget>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayoutModel">
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QFrame" name="frameProyecto">
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QWidget" name="layoutWidget">
+        <layout class="QVBoxLayout" name="verticalLayout_principal">
+         <item>
+          <widget class="QFrame" name="frame_Inicio">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label">
+            <property name="geometry">
+             <rect>
+              <x>100</x>
+              <y>270</y>
+              <width>341</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>INIICiO</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QTextEdit" name="textEdit_Console">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -536,248 +391,61 @@ Ing. Civil</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>0</height>
+          <height>100</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>50</height>
+          <height>150</height>
          </size>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="labelProyecto">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Selecciona un proyecto</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_6">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>160</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>160</width>
-               <height>140</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Iniciar sesion</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
        </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frameInicio">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QToolButton" name="toolButtonStartProject">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>220</width>
-               <height>178</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>220</width>
-               <height>178</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>...</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../Images/Boton_2.PNG</normaloff>../Images/Boton_2.PNG</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>230</width>
-               <height>230</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="toolButtonOpenProject">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>220</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>220</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Open Project</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../Images/Icons/ICO_carpeta.png</normaloff>../Images/Icons/ICO_carpeta.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>26</width>
-               <height>26</height>
-              </size>
-             </property>
-             <property name="popupMode">
-              <enum>QToolButton::DelayedPopup</enum>
-             </property>
-             <property name="toolButtonStyle">
-              <enum>Qt::ToolButtonTextBesideIcon</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QListWidget" name="listWidgetProyectos">
-           <property name="maximumSize">
-            <size>
-             <width>1000</width>
-             <height>500</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>803</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionNuevo"/>
+    <addaction name="actionAbrir"/>
+    <addaction name="actionGuardar"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportar"/>
+   </widget>
+   <addaction name="menuArchivo"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionSalir">
+  <action name="actionNuevo">
    <property name="text">
-    <string>Salir</string>
+    <string>Nuevo</string>
+   </property>
+  </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir</string>
+   </property>
+  </action>
+  <action name="actionGuardar">
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+  </action>
+  <action name="actionImportar">
+   <property name="text">
+    <string>Importar</string>
    </property>
   </action>
  </widget>

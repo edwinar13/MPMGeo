@@ -19,4 +19,73 @@ e76f51
 
 */
 
-QMainWindow#window {background-color: black;}
+QMainWindow#window {
+    background-color: rgb(255, 255, 255);
+}
+
+
+QGroupBox#groupBox_Advanced{
+    background-color: #ffffff;
+    color: rgb(2, 33, 41);
+}
+QGroupBox#groupBox_Draw{
+    background-color: #ffffff;
+    color: rgb(2, 33, 41);
+}
+QGroupBox#groupBox_Modify{
+    background-color: #ffffff;
+    color: rgb(2, 33, 41);
+}
+
+
+/*--------------- LINE EDIT --------------------*/
+
+QlineEdit{
+    border:0;
+    font-size:14px;
+    height: 30px;
+}
+
+/*--------------- LABEL --------------------*/
+
+QLabel{
+    color: rgb(165, 165, 165);
+    font-size:14px;
+}
+
+/*--------------- TOOL BUTTON --------------------*/
+
+QToolButton{
+    background-color: #ffffff;
+    color: rgb(2, 33, 41);
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: rgb(80, 80, 80);
+    font: 14px;    
+}
+
+QToolButton#toolButton_Console_Command{
+    background-color: #19303d;
+    color: rgb(42, 157, 143);
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: rgb(80, 80, 80);
+    font: 14px;    
+}
+
+QToolButton:hover{
+    background-color: #4087c9;
+    font-size:16px;
+}
+
+
+/*--------------- TOOL BUTTON --------------------*/
+    
+
+
+QDockWidget#dockWidget_Item{
+    background-color: rgb(0, 104, 104);
+    font-size:14px;
+}

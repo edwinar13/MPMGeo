@@ -13,16 +13,7 @@
   <property name="windowTitle">
    <string>Frame</string>
   </property>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>641</width>
-     <height>331</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout"/>
  </widget>
  <resources/>
  <connections/>

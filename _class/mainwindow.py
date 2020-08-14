@@ -7,6 +7,21 @@ from _func import database
 from _class import dialogperforaciones
 from time import strftime
 
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+
+from _class import zoom
+
+
+class MplCanvas(FigureCanvasQTAgg):
+
+	def __init__(self, parent=None, width=5, height=4, dpi=100):
+		fig = Figure(figsize=(width, height), dpi=dpi)
+		self.axes = fig.add_subplot(111)
+		fig.tight_layout(pad=0.0)
+		super(MplCanvas, self).__init__(fig)
+
+
 
 class MainWindow(QMainWindow):
 	"""docstring for MainWindow"""
@@ -14,117 +29,102 @@ class MainWindow(QMainWindow):
 		QMainWindow.__init__(self)
 		uic.loadUi('_ui/mainwindow.ui', self)
 
-		with open("_css/stylesOscuro.css") as f:
+		with open("_css/stylesClaro.css") as f:
 			self.setStyleSheet(f.read())
 
+	
+		# ::::::::::::::::::::::::::::::   INSTANCIAR UIs   ::::::::::::::::::::::::::::::			
+		self.frame_Graficar= uic.loadUi('_ui/frameGraficar.ui')
+		self.verticalLayout_principal.addWidget(self.frame_Inicio)
+		self.verticalLayout_principal.addWidget(self.frame_Graficar)
+
+		self.areaDraw = MplCanvas(self.frame_Graficar, width=5, height=4, dpi=100)
+		self.verticalLayout_principal.addWidget(self.areaDraw)
+
+		self.toolbarDraw = NavigationToolbar(self.areaDraw, self)
+		self.verticalLayout_principal.addWidget(self.toolbarDraw)
 
 		
-		# ::::::::::::::::::::::::::::::   INSTANCIAR UIs   ::::::::::::::::::::::::::::::
+
+		self.areaDraw.axes.cla()
+		self.areaDraw.axes.plot([0], [0])
 		
-		self.frameProyecto = uic.loadUi('_ui/frameProyecto.ui')
-		self.frameOrdenCampo = uic.loadUi('_ui/frameOrdenCampo.ui')
-		self.frameOrdenLab= uic.loadUi('_ui/frameOrdenLab.ui')
-		self.frameBDPerforaciones= uic.loadUi('_ui/frameBDPerforaciones.ui')
-		self.frameBDEnsayos= uic.loadUi('_ui/frameBDEnsayos.ui')
-		self.frameReportes= uic.loadUi('_ui/frameReportes.ui')
-		self.frameGraficar= uic.loadUi('_ui/frameGraficar.ui')
-		self.frameConfiguracion= uic.loadUi('_ui/frameConfiguracion.ui')
+		scale = 1.1
+		zp = zoom.ZoomPan()
+		figZoom = zp.zoom_factory(self.areaDraw.axes, base_scale = scale)
+		figPan = zp.pan_factory(self.areaDraw.axes)
+
+		self.show()
 
 
-		self.verticalLayoutModel.addWidget(self.frameInicio)
-		self.verticalLayoutModel.addWidget(self.frameProyecto)
-		self.verticalLayoutModel.addWidget(self.frameOrdenCampo)
-		self.verticalLayoutModel.addWidget(self.frameOrdenLab)
-		self.verticalLayoutModel.addWidget(self.frameBDPerforaciones)
-		self.verticalLayoutModel.addWidget(self.frameBDEnsayos)
-		self.verticalLayoutModel.addWidget(self.frameReportes)
-		self.verticalLayoutModel.addWidget(self.frameGraficar)
-		self.verticalLayoutModel.addWidget(self.frameConfiguracion)
+	
+	
+		
+			
 
+		# ::::::::::::::::::::::::::::::   CONFIGURACÓN UIs   ::::::::::::::::::::::::::::::		
 		self.functionStyleButtonPanel(0)
-		
-		#self.frameBDPerforaciones.setStyleSheet('background-color: #1B7499;')
-		#self.frameGraficar.setStyleSheet('background-color: #102D39;')
-
-		scena = QGraphicsScene()
-		redbrus =QBrush(Qt.blue)
-		blapen = QPen(Qt.black)
-		elipse=scena.addEllipse(10,.10,200,200,blapen,redbrus)
-		cuadro =scena.addRect(-100,-100,200,200,blapen,redbrus)
-		elipse.setFlag(QGraphicsItem.ItemIsMovable)
-		cuadro.setFlag(QGraphicsItem.ItemIsMovable)
-		self.frameGraficar.graphicsView.setScene(scena)
-
-		# ::::::::::::::::::::::::::::::   CONFIGURACÓN UIs   ::::::::::::::::::::::::::::::
-		
 		self.setWindowIcon(QIcon('Images/Icono_2_PNG.png'))
 		self.setWindowTitle("InSituGeo - Sistema de perforaciones")
-		#self.setMinimumSize(800, 600)
-		self.toolButtonStartProject.setCursor(Qt.PointingHandCursor)
-		self.listWidgetProyectos.setSpacing(5)
-		nombresColumnasPerforaciones = ('Coor Este', 'Coor Norte', 'Elevación', 'Profundidad',
-						  'Fecha Inicio', 'Fecha Final', 'Localización')
-		menuMostrarOcultar = QMenu()
-		for indice, columna in enumerate(nombresColumnasPerforaciones, start=0):
-			accion = QAction(columna, menuMostrarOcultar)
-			accion.setCheckable(True)
-			accion.setChecked(True)
-			accion.setData(indice)
+		self.setMinimumSize(800, 600)
+		self.textEdit_Console.setReadOnly(1)
+		
+		self.tabWidget.setTabEnabled(1,False)
+		self.tabWidget.setTabEnabled(2,False)
+		self.tabWidget.setTabEnabled(3,False)
+		self.tabWidget.setTabEnabled(0,False)
 
-			menuMostrarOcultar.addAction(accion)
-		self.frameBDPerforaciones.pushButtonMostrarOcultarPerforaciones.setCursor(Qt.PointingHandCursor)
-		self.frameBDPerforaciones.pushButtonMostrarOcultarPerforaciones.setMenu(menuMostrarOcultar)
-		self.frameBDPerforaciones.tableWidgetPerforaciones.setContextMenuPolicy(Qt.CustomContextMenu)
+		self.statusbar.showMessage('MPMGeo')
+	
+		
 
 		# GUARDAR INFORMACIÓN EN EL PORTAPAPELES
 		self.copiarInformacion = QApplication.clipboard()
-
 		
+
+		# VARIABLES GENERALES
+		self.CommandSelect = None
 
 		# ::::::::::::::::::::::::::::::   EVENTOS   ::::::::::::::::::::::::::::::
+		self.checkBox_malla_coorIni.stateChanged.connect(self.stateChangedcheckBox_malla_coorIni)
+		self.pushButton_malla_agregar.clicked.connect(self.onClickedpushButton_malla_agregar)
+
+		# ::::::::::::::::::::::::::::::   TECLADO   ::::::::::::::::::::::::::::::
+		self.actionNuevo.setShortcut('Ctrl+n')
+		self.actionNuevo.setStatusTip('Nuevo')
+		self.actionNuevo.triggered.connect(self.onTriggeredactionNuevo)
+
+		"""
+		self.toolButton_Rectangle.clicked.connect(self.onClickedToolButton_Rectangle)
+		self.toolButton_Circle.clicked.connect(self.onClickedToolButton_Circle)
+		self.toolButton_Line.clicked.connect(self.onClickedToolButton_Line)
+		self.toolButton_Polyline.clicked.connect(self.onClickedToolButton_Polyline)
+
+		self.lineEdit_Console_Command.returnPressed.connect(self.editingFinishedLineEdit_Console_Command)
+
+		
+		editingFinished
+		inputRejected
+		returnPressed 
+		selectionChanged 
+		textChanged (arg__1)
+		textEdited (arg__1)
+		"""
 
 		#					_ _ _ _ _ _ FRAME MAINWINDOW _ _ _ _ _ 
+		"""
 		self.toolButtonInicio.clicked.connect(self.onClickedToolButtonInicio)
-		self.toolButtonProyecto.clicked.connect(self.onClickedToolButtonProyecto)
-		self.toolButtonOrdenCampo.clicked.connect(self.onClickedToolButtonOrdenCampo)
-		self.toolButtonOrdenLab.clicked.connect(self.onClickedToolButtonOrdenLab)
-		self.toolButtonBDPerforaciones.clicked.connect(self.onClickedToolButtonBDPerforaciones)
-		self.toolButtonBDEnsayos.clicked.connect(self.onClickedToolButtonBDEnsayos)
-		self.toolButtonReportes.clicked.connect(self.onClickedToolButtonReportes)
-		self.toolButtonGraficar.clicked.connect(self.onClickedToolButtonGraficar)
-		self.toolButtonConfiguracion.clicked.connect(self.onClickedToolButtonConfiguracion)
-
-		#					_ _ _ _ _ _ FRAME INICIO _ _ _ _ _ 
-		self.toolButtonStartProject.clicked.connect(self.onClickedtoolButtonStartProject)
-		self.toolButtonOpenProject.clicked.connect(self.onClickedtoolButtonOpenProject)
 		self.listWidgetProyectos.doubleClicked.connect(self.onDoubleClickedlistWidgetProyectos)
-
-		#					_ _ _ _ _ _ FRAME PROYECTO _ _ _ _ _ 
-		self.frameProyecto.pushButtonActualizar.clicked.connect(self.onClickedpushButtonActualizar)
-
-
-		#					_ _ _ _ _ _ FRAME PERFORACIONES _ _ _ _ _ 
 		menuMostrarOcultar.triggered.connect(self.onTriggeredmenuMostrarOcultar)
 		self.frameBDPerforaciones.tableWidgetPerforaciones.customContextMenuRequested.connect(self.customContextMenuRequestedtableWidgetPerforaciones)
-
-		self.frameBDPerforaciones.pushButtonBuscarTodasPerforaciones.clicked.connect(self.onClickedpushButtonBuscarTodasPerforaciones)
-		self.frameBDPerforaciones.pushButtonAgergarPerforacion.clicked.connect(self.onClickedpushButtonAgergarPerforacion)
-		self.frameBDPerforaciones.pushButtonActualizarPerforacion.clicked.connect(self.onClickedpushButtonActualizarPerforacion)
-		self.frameBDPerforaciones.pushButtonEliminarPerforacion.clicked.connect(self.onClickedpushButtonEliminarPerforacion)
-		self.frameBDPerforaciones.pushButtonLimpiarPerforacion.clicked.connect(self.onClickedpushButtonLimpiarPerforacion)
 		self.frameBDPerforaciones.lineEditNombrePerforacion.textEdited.connect(self.onEditlineEditNombrePerforacion)
-		self.frameBDPerforaciones.lineEditNombreBuscarPerforacion.textEdited.connect(self.onEditlineEditNombreBuscarPerforacion)
-		self.frameBDPerforaciones.pushButtonLimpiarTablaPerforacion.clicked.connect(self.onClickedpushButtonLimpiarTablaPerforacion)
 		self.frameBDPerforaciones.tableWidgetPerforaciones.cellDoubleClicked.connect(self.onDoubleClickedtableWidgetPerforaciones)
-		self.frameBDPerforaciones.toolButtonMasOrdenPerforacion.clicked.connect(self.onClickedtoolButtonMasOrdenPerforacion)
-
-		#					_ _ _ _ _ _ FRAME GRAFICAR _ _ _ _ _ 
-		
+		"""
 
 
 		# ::::::::::::::::::::::::::::::   OTROS   ::::::::::::::::::::::::::::::
 
-		self.functionUpdateListProject(database.getListProjects(self))
+		#self.functionUpdateListProject(database.getListProjects(self))
 
 
 
@@ -132,33 +132,247 @@ class MainWindow(QMainWindow):
 	# :::::::::::::::::::::::::::::::::::::   FUNCIONES EVENTOS :::::::::::::::::::::::::::::::::::::
 	#************************************************************************************************
 
-	#					_ _ _ _ _ _ FRAME INICIO _ _ _ _ _ 
-	def onClickedToolButtonInicio(self):
-		self.functionStyleButtonPanel(0)
+	def stateChangedcheckBox_malla_coorIni(self):
+	
+		if self.checkBox_malla_coorIni.isChecked():
+			self.lineEdit_malla_xi.setEnabled(True)
+			self.lineEdit_malla_xi.clear()
+			self.lineEdit_malla_yi.setEnabled(True)	
+			self.lineEdit_malla_yi.clear()		
+		else:
+			self.lineEdit_malla_xi.setEnabled(False)
+			self.lineEdit_malla_xi.clear()
+			self.lineEdit_malla_yi.setEnabled(False)
+			self.lineEdit_malla_yi.clear()
+		
+	def onClickedpushButton_malla_agregar(self):
 
-	def onClickedToolButtonProyecto(self):
-		self.functionStyleButtonPanel(1)
+		var_ancho = self.lineEdit_malla_ancho.text()
+		var_alto = self.lineEdit_malla_alto.text()		
+		var_xi = self.lineEdit_malla_xi.text()
+		var_yi = self.lineEdit_malla_yi.text()		
+		coordenada_incio = self.checkBox_malla_coorIni.isChecked()
+		print(coordenada_incio)
 
-	def onClickedToolButtonOrdenCampo(self):
+		if var_ancho != '' and var_alto != '':
+
+			if coordenada_incio == True and (var_xi == '' or var_yi == ''):
+
+				buttonReply = QMessageBox.question(self, 'Mensaje PyQt5', "Campos vacios en coordendas", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+				self.tabWidget.setTabEnabled(1,False)
+
+			else:
+
+				# aca falta validar que sean nuemeros 
+				if  coordenada_incio == False:
+					var_xi = 0
+					var_yi = 0
+				else:
+					var_xi = float(self.lineEdit_malla_xi.text())
+					var_yi = float(self.lineEdit_malla_yi.text())
+
+				var_ancho = float(self.lineEdit_malla_ancho.text())
+				var_alto = float(self.lineEdit_malla_alto.text())
+
+	
+				lista_puntos=[(var_xi,var_yi),
+							(var_xi+var_ancho,var_yi),
+							(var_xi+var_ancho,var_yi+var_alto),
+							(var_xi,var_yi+var_alto)]
+
+				fila = 0
+				self.tableWidget_malla_coordenadas.clearContents()
+				self.tableWidget_malla_coordenadas.setRowCount(0)
+				coordenadasx=[0,0,0,0]
+				coordenadasy=[0,0,0,0]
+				for x, y in lista_puntos:
+					coordenadasx[fila]=x
+					coordenadasy[fila]=y
+					self.tableWidget_malla_coordenadas.setRowCount(fila + 1)			
+					self.tableWidget_malla_coordenadas.setItem(fila, 0, QTableWidgetItem(str(fila+1)))
+					self.tableWidget_malla_coordenadas.setItem(fila, 1, QTableWidgetItem(str(x)))
+					self.tableWidget_malla_coordenadas.setItem(fila, 2, QTableWidgetItem(str(y)))
+					fila += 1
+		
+				self.tabWidget.setTabEnabled(1,True)
+				if self.pushButton_malla_agregar.text()=='Agregar':
+					self.pushButton_malla_agregar.setText('Actualizar')
+
+				
+				self.areaDraw.axes.cla()
+				self.areaDraw.axes.plot(coordenadasx, coordenadasy,'bo')				
+				self.areaDraw.draw()
+					
+		
+		else:
+			buttonReply = QMessageBox.question(self, 'Mensaje MPMGeo', "Campos vacios")
+			self.tabWidget.setTabEnabled(1,True)
+		
+	def onTriggeredactionNuevo(self):
 		self.functionStyleButtonPanel(2)
-		
-	def onClickedToolButtonOrdenLab(self):
-		self.functionStyleButtonPanel(3)
+		self.tabWidget.setTabEnabled(0,True)
 
-	def onClickedToolButtonBDPerforaciones(self):
-		self.functionStyleButtonPanel(4)
 		
-	def onClickedToolButtonBDEnsayos(self):
-		self.functionStyleButtonPanel(5)
 
-	def onClickedToolButtonReportes(self):
-		self.functionStyleButtonPanel(6)
 
-	def onClickedToolButtonGraficar(self):
-		self.functionStyleButtonPanel(7)
 		
-	def onClickedToolButtonConfiguracion(self):
-		self.functionStyleButtonPanel(8)
+	#************************************************************************************************
+	# :::::::::::::::::::::::::::::::::::::   FUNCIONES GENERALES :::::::::::::::::::::::::::::::::::::
+	#************************************************************************************************
+
+	def functionIsInteger(self,value):
+		pass
+
+	def functionIsInteger(self,value):
+		pass
+
+
+
+	# ::::::::::::::::::::::::::::::   DRAW   :::::::::::::::::::::::::::::: 
+	
+			
+	def editingFinishedLineEdit_Console_Command(self):
+		Commandtext = self.lineEdit_Console_Command.text()
+
+		if self.CommandSelect == "Line":
+			data=Commandtext.split(":")
+			data=data[1].split(",")
+			if len(data)==4:
+				xi, yi=float(data[0]),float(data[1])
+				xj, yj=float(data[2]), float(data[3])
+				self.drawLine(xi, yi, xj, yj)
+
+		if self.CommandSelect == "Rectangle":
+			data=Commandtext.split(":")
+			data=data[1].split(",")
+			if len(data)==4:
+				xi, yi=float(data[0]),float(data[1])
+				xj, yj=float(data[2]), float(data[3])
+				self.drawRectangle(xi, yi, xj, yj)
+
+		if self.CommandSelect == "Circle":
+			data=Commandtext.split(":")
+			data=data[1].split(",")
+			if len(data)==3:
+				xi, yi=float(data[0]),float(data[1])
+				d=float(data[2])
+				self.drawCircle(xi, yi, d)
+		print('5555555555555555')
+		if self.CommandSelect == "Polyline":
+				self.drawPolyLine()
+		
+
+		'''
+
+		if self.CommandSelect=="Rectangle":
+			self.drawRectangle(Commandtext)
+		'''	
+		self.textEdit_Console_Command.append(Commandtext)
+		self.lineEdit_Console_Command.clear()
+		self.CommandSelect = None
+		
+	def drawCircle(self, xi, yi, d):
+
+		whitebrus =QBrush(Qt.white)
+		blapen = QPen(Qt.black)
+		elipse=self.scena.addEllipse(xi,yi,d,d,blapen,whitebrus)
+		elipse.setFlag(QGraphicsItem.ItemIsMovable)
+		self.frameGraficar.graphicsView.setScene(self.scena)
+
+	def drawRectangle(self, xi, yi, xj, yj):
+
+		#scena = QGraphicsScene()
+		whitebrus =QBrush(Qt.white)
+		blapen = QPen(Qt.black)
+		cuadro =self.scena.addRect(xi,yi,xj-xi,yj-yi,blapen,whitebrus)
+		cuadro.setFlag(QGraphicsItem.ItemIsMovable)
+		self.frameGraficar.graphicsView.setScene(self.scena)
+
+	def drawLine(self, xi, yi, xj, yj):
+
+		#scena = QGraphicsScene()
+		blapen = QPen(Qt.black)
+		cuadro =self.scena.addLine(xi,yi,xj,yj,blapen)
+		cuadro.setFlag(QGraphicsItem.ItemIsMovable)
+		self.frameGraficar.graphicsView.setScene(self.scena)
+
+	def drawPolyLine(self):
+
+
+		polygon = QPolygonF()
+		polygon << QPointF(10.4, 20.5) 
+		polygon << QPointF(20.2, 30.2)
+		polygon << QPointF(0,100)
+		#scena = QGraphicsScene()
+		blapen = QPen(Qt.black)
+		cuadro =self.scena.addPolygon(polygon,blapen)
+		cuadro.setFlag(QGraphicsItem.ItemIsMovable)
+		self.frameGraficar.graphicsView.setScene(self.scena)
+
+	
+	def mousePressEvent(self, event):
+		print('--un click {}'.format(event.pos()))
+
+	def QGraphicsSceneMouseEvent(self, event):
+		print('--un click {}'.format(event.pos()))
+
+		'''
+	def mouseMoveEvent(scena, event: 'QGraphicsSceneMouseEvent'):
+		new_cursor_position   = event.scenePos()
+		old_cursor_position   = event.lastScenePos()
+		old_top_left_corner   = self.scenePos()
+		print(698)
+
+	def mousePressEvent(scena, event: 'QGraphicsSceneMouseEvent'):
+		print('click {}'.format(event.scenePos()))
+
+		'''
+
+	'''
+		poscicion=QGraphicsSceneMouseEvent.pos()
+		print(poscicion)
+		#https://stackoverflow.com/questions/40955902/how-to-get-mouse-release-coordinates-in-qgraphicsview
+		#https://www.walletfox.com/course/qgraphicsitemruntimedrawing.php
+	'''
+	def mouseMoveEvent(self, event):
+		print('--Move click {}'.format(event.pos()))
+		punto=event.pos()
+		print(punto.x())
+
+	def mouseRelaseEvent(self, event):
+		print('--eRelase click {}'.format(event.pos()))
+
+	def keyPressEvent(self, event):
+		if event.key() == Qt.Key_Escape:
+			#self.close()
+			self.lineEdit_Console_Command.clear()
+			self.textEdit_Console_Command.append("→→ Cancel ←←")
+			self.CommandSelect = None
+			print(self.CommandSelect)
+
+	def mouseDoubleClickEvent(self, event):
+		print('Doble click x:{}'.format(event.x()))
+		print('Doble click y:{}'.format(event.y()))
+		print('--Doble click {}'.format(event.pos()))
+
+		#self.close()
+
+	def resizeEvent(self, event):
+		self.label.setText("Window Resized to QSize(%d, %d)" %
+		(event.size().width(), event.size().height()))
+		
+		"""
+		#scena = QGraphicsScene()
+		redbrus =QBrush(Qt.yellow)
+		blapen = QPen(Qt.black)
+		cuadro =self.scena.addRect(0,0,200,200,blapen,redbrus)
+		cuadro.setFlag(QGraphicsItem.ItemIsMovable)
+		self.frameGraficar.graphicsView.setScene(self.scena)
+		"""
+		
+
+
+
 
 
 
@@ -388,43 +602,14 @@ class MainWindow(QMainWindow):
 	# :::::::::::::::::::::::::::::::::::::   FUNCIONES GENERALES :::::::::::::::::::::::::::::::::::::
 	#************************************************************************************************
 
+	def functionStyleButtonPanel(self,frameNo):
+		listSetVisible = [False,False,False]
+		listSetVisible[frameNo]=True
+		self.frame_Inicio.setVisible(listSetVisible[0])
+		self.frame_Graficar.setVisible(listSetVisible[1])
+		self.areaDraw.setVisible(listSetVisible[2])
 
-	def functionStyleButtonPanel(self,buttonNo):
-		listSetVisible = [False,False,False,False,False,False,False,False,False]
-		listSetVisible[buttonNo]=True
-		self.frameInicio.setVisible(listSetVisible[0])
-		self.frameProyecto.setVisible(listSetVisible[1])
-		self.frameOrdenCampo.setVisible(listSetVisible[2])
-		self.frameOrdenLab.setVisible(listSetVisible[3])
-		self.frameBDPerforaciones.setVisible(listSetVisible[4])
-		self.frameBDEnsayos.setVisible(listSetVisible[5])
-		self.frameReportes.setVisible(listSetVisible[6])
-		self.frameGraficar.setVisible(listSetVisible[7])
-		self.frameConfiguracion.setVisible(listSetVisible[8])
-		'''
-		itemSetStyleSheet = 'hover{background-color: #4087c9;font-size:16px;}'
-		#itemSetStyleSheet = 'background-color: #19303d; color: gray;'
-		listSetStyleSheet = [itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet,
-							itemSetStyleSheet]
-
-		listSetStyleSheet[buttonNo]='background-color: #102D39; color: gray;'
-		self.toolButtonInicio.setStyleSheet(listSetStyleSheet[0])
-		self.toolButtonProyecto.setStyleSheet(listSetStyleSheet[1])
-		self.toolButtonOrdenCampo.setStyleSheet(listSetStyleSheet[2])
-		self.toolButtonOrdenLab.setStyleSheet(listSetStyleSheet[3])
-		self.toolButtonBDPerforaciones.setStyleSheet(listSetStyleSheet[4])
-		self.toolButtonBDEnsayos.setStyleSheet(listSetStyleSheet[5])
-		self.toolButtonReportes.setStyleSheet(listSetStyleSheet[6])
-		self.toolButtonGraficar.setStyleSheet(listSetStyleSheet[7])
-		self.toolButtonConfiguracion.setStyleSheet(listSetStyleSheet[8])
-		'''
+		
 
 	def functionUpdateListProject(self,dataProjects):
 		self.listWidgetProyectos.clear()
